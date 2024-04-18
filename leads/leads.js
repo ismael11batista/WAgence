@@ -247,7 +247,7 @@ function formatarLead() {
         informacoes += `Faturamento Anual: ${faturamentoAnualTexto}.\n\n`;
     }
 
-    const resultadoTexto = `Chegou lead na fila Brasil para o @\nNome da empresa: ${NomeDaEmpresa}\nWhatsapp: ${telefone}\nContato: ${NomeDoContato}\nInteresse: ${interesse}\n\n${informacoes}Perfil linkedin:\n\n--------------------------------------------------------
+    const resultadoTexto = `Chegou lead na fila Brasil para o @\nEmpresa: ${NomeDaEmpresa}\nWhatsapp: ${telefone}\nContato: ${NomeDoContato}\nInteresse: ${interesse}\n\n${informacoes}Perfil linkedin:\n\n--------------------------------------------------------
 próximo da fila é o @`;
     document.getElementById('resultado').textContent = resultadoTexto;
 }
@@ -395,7 +395,7 @@ function formatarTextoEspecial() {
     }
 
 
-    TextoEspecial = `Chegou lead para você. \n\nInformações do lead:\n\nContato: ${NomeDoContato}\nEmpresa: ${NomeDaEmpresa}\nE-mail: ${EmailFormatado}\nTelefone: ${TelefoneDoContato}\n${InteresseDoLead}\nAssunto: ${assuntoFormatado}`;
+    TextoEspecial = `Chegou lead para você.\n\nContato: ${NomeDoContato}\nEmpresa: ${NomeDaEmpresa}\nE-mail: ${EmailFormatado}\nTelefone: ${TelefoneDoContato}\n${InteresseDoLead}\nAssunto: ${assuntoFormatado}`;
 
     // Atualizando o elemento HTML com o texto especial
     document.getElementById('detalhesLead').textContent = TextoEspecial;
