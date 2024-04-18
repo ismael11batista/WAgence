@@ -124,6 +124,7 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    font-weight: bold;
     /* Adiciona negrito ao texto */
     display: inline-block;
     /* Alterado de 'center' para 'inline-block', já que 'center' não é um valor válido para 'display' */
@@ -156,7 +157,7 @@ textarea {
 
 button {
     padding: 10px 250px;
-    background-color: #CCCCCC;
+    background-color: #EFEFEF;
     color: rgba(255, 255, 255, 0.605);
     border: none;
     border-radius: 15px;
@@ -172,12 +173,6 @@ button:hover {
     background-color: #999999;
 }
 
-.resultado {
-    background-color: transparent;
-    height: 165px;
-    align-items: center;
-    text-align: center;
-}
 
 
 
@@ -215,81 +210,100 @@ button:hover {
 }
 
 
+/* Layout principal */
+.info-principal {
+
+    display: flex;
+    justify-content: space-around;
+    /* Espaçamento uniforme */
+    width: 100%;
+    padding: 0px 0;
+
+    /* Padding superior e inferior */
+
+}
+
+
+
 .resultado,
+.info-adicional,
+.containerLeadAutomatico,
+.detalhes-lead {
+    background-color: transparent;
+    height: 180px;
+    align-items: center;
+    text-align: center;
+    color: #6A6C75;
+    border-radius: 10px;
+    /* Padding uniforme */
+    text-align: center;
+    /* Centraliza o texto horizontalmente */
+    width: calc(100%);
+    /* Largura total */
+
+}
+
+
+/* Estilos para caixas de texto */
 .info-div,
-.info-div2,
-.info-adicional {
+.info-div2 {
     color: #6A6C75;
     border-radius: 10px;
     padding: 10px;
-    /*ALTURA DOS BOTÕES ORIGEM E INTERESSE */
+    /* Padding uniforme */
     text-align: center;
+    /* Centraliza o texto horizontalmente */
     width: calc(100%);
-    /* LARGURA DOS BOTÕES ORIGEM E INTERESSE*/
-}
-
-.info-div,
-.info-div2 {
+    /* Largura total */
     background-color: #EFEFEF;
     border: 1px solid rgba(255, 255, 255, 0.605);
-    ;
-}
-
-
-/* Ajustes para o posicionamento das caixas de informações principais e adicionais */
-.info-principal {
-    display: flex;
-    justify-content: center;
-    /* Centraliza os itens horizontalmente */
-    gap: 0px;
-    /* Espaçamento entre as caixas */
-    width: 100%;
-    /* Garante que a div ocupe a largura total disponível */
-    padding: 20px;
-    /* Espaçamento interno para evitar que o conteúdo toque as bordas */
-    margin-left: 39%;
-}
-
-.info-adicional {
-    margin-right: 39%;
 }
 
 
 
+
+
+/* Ajuste para caixas de detalhes do lead, informações adicionais e info-principal */
 .containerLeadAutomatico,
-.info-adicional {
+.info-adicional,
+.detalhes-lead {
     display: flex;
-    /* Utiliza Flexbox para alinhamento */
+    text-align: center;
     justify-content: center;
     /* Centraliza o conteúdo horizontalmente */
     align-items: center;
     /* Centraliza o conteúdo verticalmente */
     flex: 1;
-    /* Distribui o espaço igualmente */
+    /* Distribuição igual do espaço */
     min-width: 300px;
-    /* Largura mínima para cada caixa */
+    /* Largura mínima */
     max-width: 100%;
-    /* Largura máxima para evitar sobreposição */
-    padding: 0px;
-    /* Espaçamento interno */
+    /* Evita sobreposição */
+    padding: 0px 0px;
+    /* Ajuste para igualar o padding superior */
     border: 0px solid #02112e;
     border-radius: 0px;
     white-space: pre-wrap;
+    color: #6A6C75;
+
 
 }
 
+/* Media query para ajustes em telas menores */
 @media (max-width: 768px) {
     .info-principal {
         flex-direction: column;
-        /* Empilha as caixas verticalmente em telas menores */
     }
+}
 
-    .containerLeadAutomatico,
-    .info-adicional {
-        max-width: 90%;
-        /* Ajusta a largura máxima para telas menores */
+.detalhes-lead {
+    padding-top: 19px;
+    padding-left: 10.5%;
+}
 
 
-    }
+.info-principal {
+
+    padding-right: 10%;
 
 }
