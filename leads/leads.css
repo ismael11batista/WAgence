@@ -43,10 +43,12 @@ textarea {
     width: 95%;
     padding: 10px;
     margin: 20px;
-    border: 4px solid rgba(255, 255, 255, 0.605);
+    border: 5px solid rgba(255, 255, 255, 0.605);
     border-radius: 10px;
     resize: none;
     height: 280px;
+    margin-bottom: 15px;
+
 }
 
 .buttons-row {
@@ -82,12 +84,12 @@ textarea {
 
 
 .btn-adicionar {
-    min-width: 170px;
+    min-width: 150px;
     margin-top: 0px;
 }
 
 .btn-adicionar2 {
-    min-width: 200px;
+    min-width: 180px;
     margin-top: 0px;
 
 }
@@ -156,7 +158,6 @@ textarea {
 
 
 button {
-    padding: 10px 250px;
     background-color: #EFEFEF;
     color: rgba(255, 255, 255, 0.605);
     border: none;
@@ -230,7 +231,7 @@ button:hover {
 .containerLeadAutomatico,
 .detalhes-lead {
     background-color: transparent;
-    height: 240px;
+    height: 250px;
     align-items: center;
     text-align: center;
     color: #6A6C75;
@@ -339,13 +340,13 @@ button:hover {
 .column {
     flex: 1;
     padding: 0px;
-    margin: 0 10px;
+    margin: 0 15px;
     background: transparent;
     color: #6A6C75;
     border: 0px solid rgba(255, 255, 255, 0.605);
     border-radius: 10px;
     text-align: center;
-    height: 20px;
+    height: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
