@@ -1,67 +1,114 @@
-let elementoArrastado = null;
-let cloneElemento = null; // Vamos criar um clone do elemento para o arrasto
-let offsetX = 0, offsetY = 0;
+// Referências globais
+let draggedElement;
+let placeholder;
+let prevX;
+let prevY;
+let newIndex;
 
-document.addEventListener('mousedown', (e) => {
-    if (e.target.classList.contains('tarefa-arrastavel')) {
-        elementoArrastado = e.target;
-
-        // Cria um clone do elemento para ser arrastado
-        cloneElemento = elementoArrastado.cloneNode(true);
-        cloneElemento.classList.add('arrastando'); // Podemos adicionar uma classe para estilizar o clone durante o arrasto
-        document.body.appendChild(cloneElemento);
-
-        // Calcula o offset do mouse relativo ao elemento arrastado
-        offsetX = e.clientX - elementoArrastado.getBoundingClientRect().left;
-        offsetY = e.clientY - elementoArrastado.getBoundingClientRect().top; // Ajuste feito aqui
-
-        // Posiciona o clone no mesmo lugar que o elemento original
-        cloneElemento.style.position = 'absolute';
-        cloneElemento.style.left = elementoArrastado.getBoundingClientRect().left + 'px';
-        cloneElemento.style.top = elementoArrastado.getBoundingClientRect().top + 'px';
-        cloneElemento.style.width = elementoArrastado.offsetWidth + 'px'; // Garante que o clone tenha a mesma largura do original
-
-        document.addEventListener('mousemove', eventoMouseMove);
-        document.addEventListener('mouseup', eventoMouseUp);
-    }
-});
-
-function eventoMouseMove(e) {
-    if (!cloneElemento) return;
-
-    cloneElemento.style.left = e.clientX - offsetX + 'px';
-    cloneElemento.style.top = e.clientY - offsetY + 'px';
+// Obtem elementos irmãos arrastáveis
+const getDraggableSiblings = (element) => {
+    return Array.from(element.parentNode.children).filter(child => {
+        return child.draggable;
+    });
 }
 
-function eventoMouseUp(e) {
-    if (!cloneElemento) return;
-
-    document.removeEventListener('mousemove', eventoMouseMove);
-    document.removeEventListener('mouseup', eventoMouseUp);
-
-    let elementoAlvo = document.elementFromPoint(e.clientX, e.clientY);
-
-    // Remove o clone após o arrasto
-    document.body.removeChild(cloneElemento);
-    cloneElemento = null;
-
-    // Verifica se o elemento alvo é uma tarefa válida e diferente do elemento arrastado
-    if (elementoAlvo && elementoAlvo !== elementoArrastado && elementoAlvo.classList.contains('tarefa-arrastavel')) {
-        trocaElementos(elementoArrastado, elementoAlvo);
-    }
-
-    elementoArrastado = null;
+// Cria placeholder
+const createPlaceholder = () => {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'placeholder';
+    return placeholder;
 }
 
-function trocaElementos(elem1, elem2) {
-    const parent1 = elem1.parentNode;
-    const parent2 = elem2.parentNode;
+// Atualiza posição do placeholder  
+const updatePlaceholderPosition = () => {
+    placeholder.style.transform = `translate(${prevX}px, ${prevY}px)`;
+}
 
-    // Troca os elementos de lugar
-    if (parent1.isSameNode(parent2)) {
-        parent1.insertBefore(elem1, elem2);
+// Calcula novo índice com busca binária
+const calculateNewIndex = (siblings, cursorY) => {
+
+    // Implementação busca binária  
+    // Retorna novo índice  
+    return newIndex;
+}
+
+// Atualiza índice no DOM
+const updateElementIndex = (element, newIndex) => {
+
+    // Remove elemento
+    element.parentNode.removeChild(element);
+
+    // Infere elemento anterior novo índice  
+    const prevElement = siblings[newIndex - 1];
+
+    // Insere no novo índice
+    if (prevElement) {
+        prevElement.parentNode.insertBefore(element, prevElement.nextSibling);
     } else {
-        parent1.insertBefore(elem2, elem1.nextSibling);
-        parent2.insertBefore(elem1, elem2.nextSibling);
+        element.parentNode.prepend(element);
     }
+
+}
+
+// Eventos
+document.addEventListener('touchstart', handleInteractionStart);
+
+document.addEventListener('touchmove', handleInteractionMove);
+
+document.addEventListener('touchend', handleInteractionEnd);
+
+// Funções de interação
+function handleInteractionStart(e) {
+
+    if (!e.target.draggable) return;
+
+    draggedElement = e.target;
+
+    prevX = e.touches[0].clientX;
+
+    prevY = e.touches[0].clientY;
+
+    placeholder = createPlaceholder();
+
+    draggedElement.parentNode.insertBefore(placeholder, draggedElement);
+
+    draggedElement.style.transition = 'none';
+
+}
+
+function handleInteractionMove(e) {
+
+    const newX = e.touches[0].clientX;
+    const newY = e.touches[0].clientY;
+
+    const distX = newX - prevX;
+    const distY = newY - prevY;
+
+    draggedElement.style.transform = `translate(${distX}px, ${distY}px)`;
+
+    const siblings = getDraggableSiblings(draggedElement);
+
+    newIndex = calculateNewIndex(siblings, newY);
+
+    updatePlaceholderPosition();
+
+    prevX = newX;
+    prevY = newY;
+
+}
+
+function handleInteractionEnd(e) {
+
+    draggedElement.style.removeProperty('transform');
+    draggedElement.style.removeProperty('transition');
+
+    draggedElement.parentNode.removeChild(placeholder);
+
+    updateElementIndex(draggedElement, newIndex);
+
+    draggedElement = null;
+    placeholder = null;
+    prevX = null;
+    prevY = null;
+    newIndex = null;
 }
